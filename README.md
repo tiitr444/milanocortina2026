@@ -41,17 +41,3 @@ kõik 32 eesti sportlast kes on olümpial:
 **TÄHTAEG: 4. veebruar kl 20:00** (siis algab esimene võistlus - kurling)
 
 pärast seda võid küll muuta aga siis pole aus :)
-
-## tehnilised asjad
-
-tehtud puhas html/css/javascript. kasutab browser storage API-t et andmed salvestada. ei vaja serverit, töötab githubis täiesti ilusti.
-
-kui tahad ise midagi muuta siis lihtsalt muuda index.html faili.
-
-## litsents
-
-no tee mida tahad sellega, lihtsalt anna credits kui kusagil mujal kasutad :)
-
----
-
-**ps:** kui leiad bugi või on ideid kuidas paremaks teha siis kirjuta mulle või tee issue
