@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milano Cortina 2026 - Olümpiaennustus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #003d7a;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+            --bg-dark: #0a1628;
+            --bg-card: #1a2942;
+            --text-light: #e8f0ff;
+            --text-muted: #8ba3c7;
+            --accent: #00d4ff;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2942 50%, #0a1628 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .olympic-rings {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .ring {
+            width: 50px;
+            height: 50px;
+            border: 4px solid;
+            border-radius: 50%;
+        }
+
+        .ring:nth-child(1) { border-color: #0085C7; }
+        .ring:nth-child(2) { border-color: #000000; animation-delay: 0.1s; }
+        .ring:nth-child(3) { border-color: #DF0024; animation-delay: 0.2s; }
+        .ring:nth-child(4) { border-color: #F4C300; animation-delay: 0.3s; }
+        .ring:nth-child(5) { border-color: #009F3D; animation-delay: 0.4s; }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.3s ease-out forwards;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-section {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .user-input-group {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--bg-dark);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Crimson Pro', serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 102, 204, 0.6);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .tab:hover {
+            border-color: var(--accent);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .predictions-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .prediction-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .athlete-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+
+        .event-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .sport-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(0, 102, 204, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .medal-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .medal-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .medal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .medal-btn.gold {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .medal-btn.gold.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .medal-btn.silver {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        .medal-btn.silver.active {
+            background: var(--silver);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(192, 192, 192, 0.5);
+        }
+
+        .medal-btn.bronze {
+            border-color: var(--bronze);
+            color: var(--bronze);
+        }
+
+        .medal-btn.bronze.active {
+            background: var(--bronze);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(205, 127, 50, 0.5);
+        }
+
+        .medal-btn.none {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .placement-options {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .placement-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .placement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .placement-btn {
+            padding: 10px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            background: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .placement-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+
+        .placement-btn.active {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.6), rgba(0, 212, 255, 0.6));
+            border-color: var(--accent);
+            box-shadow: 0 3px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .exact-position {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .exact-position input {
+            flex: 1;
+            padding: 10px 15px;
+            background: var(--bg-dark);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .exact-position input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .prediction-summary {
+            margin-top: 12px;
+            padding: 10px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .points-preview {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            border-radius: 15px;
+            color: var(--bg-dark);
+            font-weight: bold;
+            margin-left: 10px;
+            font-size: 0.85rem;
+        }
+
+        .locked-competition {
+            opacity: 0.6;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .locked-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .time-until-start {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-top: 5px;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .leaderboard {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .leaderboard-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-dark);
+            margin-bottom: 12px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .leaderboard-item:nth-child(1) {
+            border-left-color: var(--gold);
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), var(--bg-dark));
+        }
+
+        .leaderboard-item:nth-child(2) {
+            border-left-color: var(--silver);
+            background: linear-gradient(90deg, rgba(192, 192, 192, 0.1), var(--bg-dark));
+        }
+
+        .leaderboard-item:nth-child(3) {
+            border-left-color: var(--bronze);
+            background: linear-gradient(90deg, rgba(205, 127, 50, 0.1), var(--bg-dark));
+        }
+
+        .participant-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .points {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .general-predictions {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .general-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .general-card label {
+            font-size: 0.85rem;
+        }
+
+        .save-btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 1.4rem;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .info-banner p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .predictions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-input-group {
+                flex-direction: column;
+            }
+
+            .input-wrapper {
+                min-width: 100%;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .calendar-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .calendar-day {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .day-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .event-item {
+            padding: 12px;
+            background: var(--bg-dark);
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-time {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .event-name {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .event-sport {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="olympic-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+            <h1>Milano Cortina 2026</h1>
+            <p class="subtitle">Olümpiaennustus</p>
+        </header>
+
+        <div class="user-section">
+            <div class="user-input-group">
+                <div class="input-wrapper">
+                    <label>Sinu nimi</label>
+                    <input type="text" id="userName" placeholder="Sisesta oma nimi...">
+                </div>
+                <button onclick="loadUserPredictions()">Alusta ennustamist</button>
+            </div>
+        </div>
+
+        <div class="info-banner">
+            <p><strong>📅 Tähtaeg:</strong> Ennustused tuleb esitada enne 4. veebruari kl 20:00 (esimene võistlus)<br>
+            <strong>🏅 Punktid:</strong> Kuld/Hõbe/Pronks = 10p | TOP 5 = 5p | TOP 10 = 3p | TOP 20 = 1p | Täpne koht = 15p</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('predictions')">Minu ennustused</div>
+            <div class="tab" onclick="switchTab('leaderboard')">Edetabel</div>
+            <div class="tab" onclick="switchTab('calendar')">Võistluskalender</div>
+            <div class="tab" onclick="switchTab('admin')" style="background: rgba(255, 0, 0, 0.2); border: 2px solid rgba(255, 0, 0, 0.4);">🔧 Admin</div>
+        </div>
+
+        <div id="predictions-tab" class="tab-content active">
+            <div id="predictionsContent" class="loading">
+                Sisesta oma nimi üleval, et alustada...
+            </div>
+        </div>
+
+        <div id="leaderboard-tab" class="tab-content">
+            <div class="leaderboard">
+                <h2 class="leaderboard-title">🏆 Edetabel</h2>
+                <div id="leaderboardContent">
+                    <div class="loading">Andmeid laetakse...</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calendar-tab" class="tab-content">
+            <div class="calendar-grid" id="calendarContent"></div>
+        </div>
+
+        <div id="admin-tab" class="tab-content">
+            <div class="leaderboard" style="max-width: 800px; margin: 0 auto;">
+                <h2 class="leaderboard-title">🔧 Admin paneelil</h2>
+                
+                <div style="background: rgba(255, 0, 0, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #ff0000; margin-bottom: 30px;">
+                    <p style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">⚠️ HOIATUS</p>
+                    <p>Need nupud on administraatorile testimiseks. Kasuta ettevaatlikult!</p>
+                </div>
+
+                <div style="display: grid; gap: 20px;">
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            📊 Andmete ülevaade
+                        </h3>
+                        <div id="adminStats" style="color: var(--text-muted); line-height: 1.8;"></div>
+                        <button onclick="showAllData()" style="margin-top: 15px; background: var(--primary); padding: 12px 25px;">
+                            👁️ Näita kõiki andmeid
+                        </button>
+                    </div>
+
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            📝 Tegevuste logi
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Vaata kes millal ennustusi salvestas
+                        </p>
+                        <div id="activityLog" style="max-height: 400px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <p style="color: var(--text-muted);">Laadimine...</p>
+                        </div>
+                        <button onclick="loadActivityLog()" style="background: var(--primary); padding: 12px 25px;">
+                            🔄 Värskenda logi
+                        </button>
+                    </div>
+
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            💾 Varundamine
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Salvesta kõik andmed enne resetimist (just in case!)
+                        </p>
+                        <button onclick="exportData()" style="background: linear-gradient(135deg, #00d4ff, #0066CC); padding: 12px 25px;">
+                            📥 Laadi alla backup
+                        </button>
+                    </div>
+
+                    <div style="background: rgba(255, 0, 0, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(255, 0, 0, 0.3);">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: #ff6b6b;">
+                            🗑️ Kustuta kõik andmed
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Kustutab KÕIK ennustused ja logid. Seda ei saa tagasi võtta!
+                        </p>
+                        <button onclick="resetAllData()" style="background: linear-gradient(135deg, #ff4444, #cc0000); padding: 15px 30px;">
+                            ⚠️ RESET - Kustuta kõik
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const athletes = [
+            {
+                name: "Marie Kaldvee & Harri Lill",
+                sport: "Kurling",
+                event: "Segapaarid",
+                date: "4.-10. veebruar",
+                startTime: "2026-02-04T20:00:00",
+                id: "curling_mixed"
+            },
+            {
+                name: "Kelly Sildaru",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "21. veebruar",
+                startTime: "2026-02-21T20:30:00",
+                id: "sildaru_kelly_ski"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Pargisõit",
+                date: "10. veebruar",
+                startTime: "2026-02-10T13:30:00",
+                id: "sildaru_henry_park"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Big Air",
+                date: "17. veebruar",
+                startTime: "2026-02-17T20:30:00",
+                id: "sildaru_henry_bigair"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "20. veebruar",
+                startTime: "2026-02-20T20:30:00",
+                id: "sildaru_henry_ski"
+            },
+            {
+                name: "Grete-Mia Meentalo",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "21. veebruar",
+                startTime: "2026-02-21T20:30:00",
+                id: "meentalo_ski"
+            },
+            {
+                name: "Marten Liiv",
+                sport: "Kiiruisutamine",
+                event: "1000m",
+                date: "11. veebruar",
+                startTime: "2026-02-11T19:30:00",
+                id: "liiv_1000"
+            },
+            {
+                name: "Marten Liiv",
+                sport: "Kiiruisutamine",
+                event: "500m",
+                date: "14. veebruar",
+                startTime: "2026-02-14T17:00:00",
+                id: "liiv_500"
+            },
+            {
+                name: "Aleksandr Selevko",
+                sport: "Iluuisutamine",
+                event: "Meeste üksiksõit",
+                date: "10. & 13. veebruar",
+                startTime: "2026-02-10T19:30:00",
+                id: "selevko"
+            },
+            {
+                name: "Niina Petrõkina",
+                sport: "Iluuisutamine",
+                event: "Naiste üksiksõit",
+                date: "17. & 19. veebruar",
+                startTime: "2026-02-17T19:30:00",
+                id: "petrokina"
+            },
+            {
+                name: "Kristjan Ilves",
+                sport: "Kahevõistlus",
+                event: "Normaalmägi",
+                date: "11. veebruar",
+                startTime: "2026-02-11T11:00:00",
+                id: "ilves_normal"
+            },
+            {
+                name: "Kristjan Ilves",
+                sport: "Kahevõistlus",
+                event: "Suur mägi",
+                date: "17. veebruar",
+                startTime: "2026-02-17T11:00:00",
+                id: "ilves_large"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Meeste teatesõit",
+                date: "17. veebruar",
+                startTime: "2026-02-17T15:30:00",
+                id: "biathlon_men_relay"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Naiste teatesõit",
+                date: "18. veebruar",
+                startTime: "2026-02-18T15:45:00",
+                id: "biathlon_women_relay"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Segateatesõit",
+                date: "8. veebruar",
+                startTime: "2026-02-08T15:00:00",
+                id: "biathlon_mixed_relay"
+            },
+            {
+                name: "Murdmaasuusatamine",
+                sport: "Murdmaasuusatamine",
+                event: "Meeste teatesõit",
+                date: "15. veebruar",
+                startTime: "2026-02-15T13:00:00",
+                id: "cross_country_men_relay"
+            },
+            {
+                name: "Murdmaasuusatamine",
+                sport: "Murdmaasuusatamine",
+                event: "Naiste teatesõit",
+                date: "14. veebruar",
+                startTime: "2026-02-14T13:00:00",
+                id: "cross_country_women_relay"
+            },
+            {
+                name: "Artti Aigro",
+                sport: "Suusahüpped",
+                event: "Normaalmägi",
+                date: "9. veebruar",
+                startTime: "2026-02-09T20:00:00",
+                id: "aigro_normal"
+            },
+            {
+                name: "Artti Aigro",
+                sport: "Suusahüpped",
+                event: "Suur mägi",
+                date: "14. veebruar",
+                startTime: "2026-02-14T19:45:00",
+                id: "aigro_large"
+            },
+            {
+                name: "Darta Zunte",
+                sport: "Skeleton",
+                event: "Naised",
+                date: "13.-14. veebruar",
+                startTime: "2026-02-13T16:00:00",
+                id: "zunte"
+            },
+            {
+                name: "Mai Brit Teder",
+                sport: "Lumelauakross",
+                event: "Naised",
+                date: "13. veebruar",
+                startTime: "2026-02-13T11:00:00",
+                id: "teder_snowboard"
+            },
+            {
+                name: "Tormis Laine",
+                sport: "Mäesuusatamine",
+                event: "Suurslaalom",
+                date: "14. veebruar",
+                startTime: "2026-02-14T11:00:00",
+                id: "laine_gs"
+            },
+            {
+                name: "Tormis Laine",
+                sport: "Mäesuusatamine",
+                event: "Slaalom",
+                date: "16. veebruar",
+                startTime: "2026-02-16T11:00:00",
+                id: "laine_slalom"
+            }
+        ];
+
+        // GitHub Gist API configuration
+        const GITHUB_TOKEN = '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';
+        const GIST_ID = ''; // Will be created automatically
+        let gistId = localStorage.getItem('gistId') || '';
+
+        // Storage wrapper using GitHub Gist
+        const storage = {
+            async ensureGist() {
+                if (gistId) return gistId;
+                
+                // Check if gist already exists
+                const storedId = localStorage.getItem('gistId');
+                if (storedId) {
+                    gistId = storedId;
+                    return gistId;
+                }
+                
+                // Create new gist
+                const response = await fetch('https://api.github.com/gists', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        description: 'Milano Cortina 2026 - Olümpia Ennustused',
+                        public: false,
+                        files: {
+                            'predictions.json': {
+                                content: JSON.stringify({})
+                            }
+                        }
+                    })
+                });
+                
+                const data = await response.json();
+                gistId = data.id;
+                localStorage.setItem('gistId', gistId);
+                return gistId;
+            },
+            
+            async getAllData() {
+                await this.ensureGist();
+                const response = await fetch(`https://api.github.com/gists/${gistId}`, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`
+                    }
+                });
+                const data = await response.json();
+                return JSON.parse(data.files['predictions.json'].content);
+            },
+            
+            async saveAllData(allData) {
+                await this.ensureGist();
+                await fetch(`https://api.github.com/gists/${gistId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        files: {
+                            'predictions.json': {
+                                content: JSON.stringify(allData, null, 2)
+                            }
+                        }
+                    })
+                });
+            },
+            
+            async get(key, shared) {
+                try {
+                    const allData = await this.getAllData();
+                    if (allData[key]) {
+                        return { key, value: allData[key], shared };
+                    }
+                    return null;
+                } catch (error) {
+                    console.error('Error getting data:', error);
+                    return null;
+                }
+            },
+            
+            async set(key, value, shared) {
+                try {
+                    const allData = await this.getAllData();
+                    allData[key] = value;
+                    await this.saveAllData(allData);
+                    return { key, value, shared };
+                } catch (error) {
+                    console.error('Error setting data:', error);
+                    throw error;
+                }
+            },
+            
+            async delete(key, shared) {
+                try {
+                    const allData = await this.getAllData();
+                    delete allData[key];
+                    await this.saveAllData(allData);
+                    return { key, deleted: true, shared };
+                } catch (error) {
+                    console.error('Error deleting data:', error);
+                    throw error;
+                }
+            },
+            
+            async list(prefix, shared) {
+                try {
+                    const allData = await this.getAllData();
+                    const keys = Object.keys(allData).filter(k => k.startsWith(prefix));
+                    return { keys, prefix, shared };
+                } catch (error) {
+                    console.error('Error listing data:', error);
+                    return { keys: [], prefix, shared };
+                }
+            }
+        };
+
+
+        const calendarEvents = [
+            { date: "4. veebruar", time: "20:00", sport: "Kurling", event: "Eesti - Šveits" },
+            { date: "5. veebruar", time: "11:00", sport: "Kurling", event: "Suurbritannia - Eesti" },
+            { date: "7. veebruar", time: "15:00", sport: "Freestyle", event: "Meeste pargisõit kvalif." },
+            { date: "8. veebruar", time: "15:00", sport: "Laskesuusatamine", event: "Segateatesõit" },
+            { date: "9. veebruar", time: "20:00", sport: "Suusahüpped", event: "Meeste normaalmägi" },
+            { date: "10. veebruar", time: "13:30", sport: "Freestyle", event: "Meeste pargisõit finaal" },
+            { date: "10. veebruar", time: "19:30", sport: "Iluuisutamine", event: "Meeste lühikava" },
+            { date: "11. veebruar", time: "11:00", sport: "Kahevõistlus", event: "Normaalmägi" },
+            { date: "11. veebruar", time: "19:30", sport: "Kiiruisutamine", event: "Meeste 1000m" },
+            { date: "13. veebruar", time: "11:00", sport: "Lumelauakross", event: "Naiste kvalif." },
+            { date: "13. veebruar", time: "16:00", sport: "Skeleton", event: "Naised 1.-2. sõit" },
+            { date: "13. veebruar", time: "20:00", sport: "Iluuisutamine", event: "Meeste vabakava" },
+            { date: "14. veebruar", time: "11:00", sport: "Mäesuusatamine", event: "Meeste suurslaalom" },
+            { date: "14. veebruar", time: "17:00", sport: "Kiiruisutamine", event: "Meeste 500m" },
+            { date: "14. veebruar", time: "19:45", sport: "Suusahüpped", event: "Meeste suur mägi" },
+            { date: "15. veebruar", time: "13:00", sport: "Murdmaasuusatamine", event: "Meeste teatesõit" },
+            { date: "16. veebruar", time: "11:00", sport: "Mäesuusatamine", event: "Meeste slaalom" },
+            { date: "17. veebruar", time: "11:00", sport: "Kahevõistlus", event: "Suur mägi" },
+            { date: "17. veebruar", time: "15:30", sport: "Laskesuusatamine", event: "Meeste teatesõit" },
+            { date: "17. veebruar", time: "19:30", sport: "Iluuisutamine", event: "Naiste lühikava" },
+            { date: "17. veebruar", time: "20:30", sport: "Freestyle", event: "Meeste Big Air finaal" },
+            { date: "18. veebruar", time: "15:45", sport: "Laskesuusatamine", event: "Naiste teatesõit" },
+            { date: "19. veebruar", time: "20:00", sport: "Iluuisutamine", event: "Naiste vabakava" },
+            { date: "20. veebruar", time: "20:30", sport: "Freestyle", event: "Meeste rennisõit finaal" },
+            { date: "21. veebruar", time: "20:30", sport: "Freestyle", event: "Naiste rennisõit finaal" }
+        ];
+
+        let currentUser = '';
+        let predictions = {};
+
+        function isCompetitionLocked(athlete) {
+            const now = new Date();
+            const startTime = new Date(athlete.startTime);
+            return now >= startTime;
+        }
+
+        function getTimeUntilStart(athlete) {
+            const now = new Date();
+            const startTime = new Date(athlete.startTime);
+            const diff = startTime - now;
+            
+            if (diff <= 0) return null;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            if (days > 0) return `${days}p ${hours}h`;
+            if (hours > 0) return `${hours}h`;
+            return 'Varsti';
+        }
+
+        let adminAuthenticated = false;
+
+        function switchTab(tabName) {
+            // Admin tab vajab parooli
+            if (tabName === 'admin' && !adminAuthenticated) {
+                const password = prompt('🔐 Admin paneel on kaitstud.\n\nSisesta parool:');
+                if (password !== 'tiitonadmin123!') {
+                    alert('❌ Vale parool! Ärge proovige 😄');
+                    return;
+                }
+                adminAuthenticated = true;
+                alert('✅ Tere tulemast, admin!');
+            }
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            if (tabName === 'leaderboard') {
+                loadLeaderboard();
+            } else if (tabName === 'calendar') {
+                loadCalendar();
+            } else if (tabName === 'admin') {
+                loadAdminPanel();
+            }
+        }
+
+        async function loadUserPredictions() {
+            const userName = document.getElementById('userName').value.trim();
+            if (!userName) {
+                alert('Palun sisesta oma nimi');
+                return;
+            }
+
+            currentUser = userName;
+            
+            try {
+                const stored = await storage.get(`predictions:${userName}`, true);
+                predictions = stored ? JSON.parse(stored.value) : {};
+            } catch (error) {
+                predictions = {};
+            }
+
+            renderPredictions();
+        }
+
+        function renderPredictions() {
+            const content = document.getElementById('predictionsContent');
+            
+            let html = '<div class="general-predictions">';
+            
+            html += `
+                <div class="general-card">
+                    <label>Eesti medaleid kokku</label>
+                    <input type="number" id="total_medals" value="${predictions.total_medals || ''}" min="0" max="20">
+                </div>
+                <div class="general-card">
+                    <label>Eesti kuldi</label>
+                    <input type="number" id="gold_medals" value="${predictions.gold_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>Eesti hõbedat</label>
+                    <input type="number" id="silver_medals" value="${predictions.silver_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>Eesti pronksi</label>
+                    <input type="number" id="bronze_medals" value="${predictions.bronze_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>TOP 1 medalitabelis</label>
+                    <input type="text" id="top_country" value="${predictions.top_country || ''}" placeholder="Riigi nimi">
+                </div>
+                <div class="general-card">
+                    <label>Suurim üllatus</label>
+                    <input type="text" id="biggest_surprise" value="${predictions.biggest_surprise || ''}" placeholder="Kirjelda...">
+                </div>
+            `;
+            
+            html += '</div>';
+            
+            html += '<h2 style="margin-top: 40px; margin-bottom: 20px; font-family: Bebas Neue; font-size: 2rem; letter-spacing: 2px;">Medaliennustused ja kohad</h2>';
+            html += '<div class="predictions-grid">';
+            
+            athletes.forEach(athlete => {
+                const medalPred = predictions[athlete.id + '_medal'] || '';
+                const placementPred = predictions[athlete.id + '_placement'] || '';
+                const exactPred = predictions[athlete.id + '_exact'] || '';
+                
+                const isLocked = isCompetitionLocked(athlete);
+                const timeUntil = getTimeUntilStart(athlete);
+                
+                let summary = '';
+                let points = 0;
+                if (medalPred === 'K') { summary = '🥇 Kuld'; points = 10; }
+                else if (medalPred === 'H') { summary = '🥈 Hõbe'; points = 10; }
+                else if (medalPred === 'P') { summary = '🥉 Pronks'; points = 10; }
+                else if (placementPred === 'top5') { summary = '🎯 TOP 5'; points = 5; }
+                else if (placementPred === 'top10') { summary = '🎯 TOP 10'; points = 3; }
+                else if (placementPred === 'top20') { summary = '🎯 TOP 20'; points = 1; }
+                else if (exactPred) { summary = `🎯 ${exactPred}. koht`; points = 15; }
+                
+                html += `
+                    <div class="prediction-card ${isLocked ? 'locked-competition' : ''}">
+                        ${isLocked ? '<div class="locked-badge">🔒 LUKUS</div>' : ''}
+                        <div class="card-header">
+                            <div>
+                                <div class="sport-tag">${athlete.sport}</div>
+                                <div class="athlete-name">${athlete.name}</div>
+                                ${!isLocked && timeUntil ? `<div class="time-until-start">⏰ ${timeUntil} alguseni</div>` : ''}
+                                ${isLocked ? `<div class="time-until-start" style="color: #ff6b6b;">Võistlus alanud</div>` : ''}
+                            </div>
+                            <div class="event-date">${athlete.date}<br><small>${athlete.event}</small></div>
+                        </div>
+                        
+                        <div class="placement-label">🏅 Medaliennustus</div>
+                        <div class="medal-selector">
+                            <button class="medal-btn gold ${medalPred === 'K' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'K', ${isLocked})">Kuld</button>
+                            <button class="medal-btn silver ${medalPred === 'H' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'H', ${isLocked})">Hõbe</button>
+                            <button class="medal-btn bronze ${medalPred === 'P' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'P', ${isLocked})">Pronks</button>
+                            <button class="medal-btn none ${!medalPred ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', '', ${isLocked})">-</button>
+                        </div>
+                        
+                        <div class="placement-options">
+                            <div class="placement-label">📊 Või koha ennustus</div>
+                            <div class="placement-grid">
+                                <button class="placement-btn ${placementPred === 'top5' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top5', ${isLocked})">TOP 5</button>
+                                <button class="placement-btn ${placementPred === 'top10' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top10', ${isLocked})">TOP 10</button>
+                                <button class="placement-btn ${placementPred === 'top20' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top20', ${isLocked})">TOP 20</button>
+                            </div>
+                            
+                            <div class="placement-label">🎯 Või täpne koht (1-50)</div>
+                            <div class="exact-position">
+                                <input type="number" 
+                                       id="exact_${athlete.id}" 
+                                       value="${exactPred}" 
+                                       min="1" 
+                                       max="50" 
+                                       placeholder="nt. 8"
+                                       ${isLocked ? 'disabled' : ''}
+                                       onchange="selectExactPosition('${athlete.id}', this.value, ${isLocked})">
+                            </div>
+                        </div>
+                        
+                        ${summary ? `<div class="prediction-summary">${summary}<span class="points-preview">+${points}p</span></div>` : ''}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            html += '<button class="save-btn" onclick="savePredictions()">💾 Salvesta ennustused</button>';
+            
+            content.innerHTML = html;
+        }
+
+        function selectMedal(athleteId, medal, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
+            predictions[athleteId + '_medal'] = medal;
+            if (medal) {
+                predictions[athleteId + '_placement'] = '';
+                predictions[athleteId + '_exact'] = '';
+            }
+            renderPredictions();
+        }
+
+        function selectPlacement(athleteId, placement, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
+            predictions[athleteId + '_placement'] = placement;
+            predictions[athleteId + '_medal'] = '';
+            predictions[athleteId + '_exact'] = '';
+            renderPredictions();
+        }
+
+        function selectExactPosition(athleteId, position, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
+            if (position && position > 0 && position <= 50) {
+                predictions[athleteId + '_exact'] = position;
+                predictions[athleteId + '_medal'] = '';
+                predictions[athleteId + '_placement'] = '';
+                renderPredictions();
+            } else if (!position) {
+                predictions[athleteId + '_exact'] = '';
+                renderPredictions();
+            }
+        }
+
+        async function savePredictions() {
+            if (!currentUser) {
+                alert('Palun sisesta oma nimi');
+                return;
+            }
+
+            predictions.total_medals = document.getElementById('total_medals').value;
+            predictions.gold_medals = document.getElementById('gold_medals').value;
+            predictions.silver_medals = document.getElementById('silver_medals').value;
+            predictions.bronze_medals = document.getElementById('bronze_medals').value;
+            predictions.top_country = document.getElementById('top_country').value;
+            predictions.biggest_surprise = document.getElementById('biggest_surprise').value;
+            predictions.userName = currentUser;
+            predictions.timestamp = new Date().toISOString();
+
+            try {
+                // Salvesta ennustused
+                await storage.set(`predictions:${currentUser}`, JSON.stringify(predictions), true);
+                
+                // Lisa logi koos täpsete ennustustega
+                const logEntry = {
+                    userName: currentUser,
+                    action: 'save_predictions',
+                    timestamp: new Date().toISOString(),
+                    dateTime: new Date().toLocaleString('et-EE', { 
+                        timeZone: 'Europe/Tallinn',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    }),
+                    predictionsCount: Object.keys(predictions).filter(k => 
+                        k.includes('_medal') || k.includes('_placement') || k.includes('_exact')
+                    ).filter(k => predictions[k]).length,
+                    // Salvesta ka täpsed ennustused
+                    predictions: JSON.parse(JSON.stringify(predictions))
+                };
+                
+                // Salvesta logi
+                const logKey = `log:${Date.now()}:${currentUser}`;
+                await storage.set(logKey, JSON.stringify(logEntry), true);
+                
+                alert('✅ Ennustused salvestatud!');
+            } catch (error) {
+                alert('❌ Salvestamine ebaõnnestus. Proovi uuesti.');
+                console.error(error);
+            }
+        }
+
+        async function loadLeaderboard() {
+            const content = document.getElementById('leaderboardContent');
+            
+            try {
+                const keys = await storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    content.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;">Veel pole ennustusi esitatud</p>';
+                    return;
+                }
+
+                const allPredictions = [];
+                for (const key of keys.keys) {
+                    try {
+                        const data = await storage.get(key, true);
+                        if (data) {
+                            const pred = JSON.parse(data.value);
+                            allPredictions.push(pred);
+                        }
+                    } catch (e) {
+                        console.error('Error loading prediction:', e);
+                    }
+                }
+
+                allPredictions.sort((a, b) => {
+                    const pointsA = calculatePoints(a);
+                    const pointsB = calculatePoints(b);
+                    return pointsB - pointsA;
+                });
+
+                let html = '';
+                allPredictions.forEach((pred, index) => {
+                    const count = calculatePoints(pred);
+                    html += `
+                        <div class="leaderboard-item">
+                            <span class="participant-name">${index + 1}. ${pred.userName || 'Tundmatu'}</span>
+                            <span class="points">${count} ennustust</span>
+                        </div>
+                    `;
+                });
+
+                content.innerHTML = html;
+            } catch (error) {
+                content.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Viga andmete laadimisel</p>';
+                console.error(error);
+            }
+        }
+
+        function calculatePoints(pred) {
+            let points = 0;
+            
+            // Üldennustuste punktid (hiljem lisatakse tegelike tulemuste põhjal)
+            // Praegu lihtsalt loeme ennustuste arvu
+            
+            athletes.forEach(athlete => {
+                const medalPred = pred[athlete.id + '_medal'];
+                const placementPred = pred[athlete.id + '_placement'];
+                const exactPred = pred[athlete.id + '_exact'];
+                
+                // Näita potentsiaalseid punkte enne võistlusi
+                if (medalPred === 'K' || medalPred === 'H' || medalPred === 'P') {
+                    points += 0; // 10 punkti kui õige
+                } else if (placementPred === 'top5') {
+                    points += 0; // 5 punkti kui õige
+                } else if (placementPred === 'top10') {
+                    points += 0; // 3 punkti kui õige
+                } else if (placementPred === 'top20') {
+                    points += 0; // 1 punkt kui õige
+                } else if (exactPred) {
+                    points += 0; // 15 punkti kui täpne
+                }
+            });
+            
+            // Loeme ennustuste arvu
+            let predictionCount = 0;
+            athletes.forEach(athlete => {
+                if (pred[athlete.id + '_medal'] || pred[athlete.id + '_placement'] || pred[athlete.id + '_exact']) {
+                    predictionCount++;
+                }
+            });
+            
+            return predictionCount; // Näitame lihtsalt ennustuste arvu enne võistlusi
+        }
+
+        function loadCalendar() {
+            const content = document.getElementById('calendarContent');
+            
+            // Grupeeri kuupäevade järgi
+            const groupedByDate = {};
+            calendarEvents.forEach(event => {
+                if (!groupedByDate[event.date]) {
+                    groupedByDate[event.date] = [];
+                }
+                groupedByDate[event.date].push(event);
+            });
+
+            // Sorteerimisfunktsioon - teisenda eesti kuupäevad Date objektideks
+            const parseEstonianDate = (dateStr) => {
+                const months = {
+                    'veebruar': 1
+                };
+                const parts = dateStr.split(' ');
+                const day = parseInt(parts[0].replace('.', ''));
+                const month = months[parts[1]] || 2; // default veebruar
+                return new Date(2026, month, day);
+            };
+
+            // Sorteeri kuupäevad kronoloogiliselt
+            const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
+                return parseEstonianDate(a) - parseEstonianDate(b);
+            });
+
+            // Täna kuupäev võrdluseks
+            const today = new Date();
+            const todayStr = today.getDate() + '. veebruar';
+
+            let html = '';
+            sortedDates.forEach(date => {
+                const eventDate = parseEstonianDate(date);
+                const isToday = date === todayStr;
+                const isPast = eventDate < today;
+                const isFuture = eventDate > today;
+
+                // Lisa märgistus kas täna, minevikus või tulevikus
+                let dateClass = '';
+                let dateLabel = '';
+                if (isToday) {
+                    dateClass = 'style="border-left-color: #FFD700; background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), var(--bg-card));"';
+                    dateLabel = ' 🔥 TÄNA';
+                } else if (isPast) {
+                    dateClass = 'style="opacity: 0.5;"';
+                    dateLabel = ' ✓ Möödas';
+                } else if (isFuture) {
+                    dateLabel = ' 📅 Tulekul';
+                }
+
+                html += `
+                    <div class="calendar-day" ${dateClass}>
+                        <div class="day-header">${date}${dateLabel}</div>
+                        ${groupedByDate[date]
+                            .sort((a, b) => {
+                                // Sorteeri ka kellaajad
+                                const timeA = a.time.split(':').map(Number);
+                                const timeB = b.time.split(':').map(Number);
+                                return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
+                            })
+                            .map(event => `
+                            <div class="event-item">
+                                <span class="event-time">${event.time}</span>
+                                <span class="event-name">${event.event}</span>
+                                <span class="event-sport">${event.sport}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+        }
+
+        async function loadAdminPanel() {
+            try {
+                const keys = await storage.list('predictions:', true);
+                const statsDiv = document.getElementById('adminStats');
+                
+                let html = `
+                    <p><strong>Osalejaid kokku:</strong> ${keys ? keys.keys.length : 0}</p>
+                    <p><strong>Salvestatud ennustusi:</strong> ${keys ? keys.keys.length : 0}</p>
+                `;
+                
+                if (keys && keys.keys.length > 0) {
+                    html += '<p><strong>Osalejad:</strong></p><ul style="margin-left: 20px;">';
+                    for (const key of keys.keys) {
+                        const userName = key.replace('predictions:', '');
+                        html += `<li>${userName}</li>`;
+                    }
+                    html += '</ul>';
+                }
+                
+                statsDiv.innerHTML = html;
+                
+                // Lae ka logi automaatselt
+                await loadActivityLog();
+            } catch (error) {
+                document.getElementById('adminStats').innerHTML = '<p>Viga andmete laadimisel</p>';
+            }
+        }
+
+        async function loadActivityLog() {
+            const logDiv = document.getElementById('activityLog');
+            
+            try {
+                const keys = await storage.list('log:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    logDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Logisid pole veel</p>';
+                    return;
+                }
+
+                // Lae kõik logid
+                const logs = [];
+                for (const key of keys.keys) {
+                    try {
+                        const data = await storage.get(key, true);
+                        if (data) {
+                            logs.push(JSON.parse(data.value));
+                        }
+                    } catch (e) {
+                        console.error('Error loading log:', e);
+                    }
+                }
+
+                // Sorteeri uusimad enne
+                logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                // Kuva logid
+                let html = '<div style="font-size: 0.9rem;">';
+                logs.forEach((log, index) => {
+                    const bgColor = index % 2 === 0 ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.1)';
+                    const logId = `log_${index}`;
+                    
+                    // Koosta ennustuste kokkuvõte
+                    let predictionsSummary = '';
+                    if (log.predictions) {
+                        const pred = log.predictions;
+                        const athletePredictions = [];
+                        
+                        athletes.forEach(athlete => {
+                            const medalPred = pred[athlete.id + '_medal'];
+                            const placementPred = pred[athlete.id + '_placement'];
+                            const exactPred = pred[athlete.id + '_exact'];
+                            
+                            if (medalPred || placementPred || exactPred) {
+                                let predText = '';
+                                if (medalPred === 'K') predText = '🥇 Kuld';
+                                else if (medalPred === 'H') predText = '🥈 Hõbe';
+                                else if (medalPred === 'P') predText = '🥉 Pronks';
+                                else if (placementPred === 'top5') predText = '🎯 TOP 5';
+                                else if (placementPred === 'top10') predText = '🎯 TOP 10';
+                                else if (placementPred === 'top20') predText = '🎯 TOP 20';
+                                else if (exactPred) predText = `🎯 ${exactPred}. koht`;
+                                
+                                athletePredictions.push(`<div style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05);"><strong>${athlete.name}</strong> (${athlete.event}): ${predText}</div>`);
+                            }
+                        });
+                        
+                        if (athletePredictions.length > 0) {
+                            predictionsSummary = `
+                                <div id="${logId}_details" style="display: none; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 6px; max-height: 300px; overflow-y: auto;">
+                                    <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <strong>Üldennustused:</strong><br>
+                                        Medaleid kokku: ${pred.total_medals || '-'} | 
+                                        Kuldi: ${pred.gold_medals || '-'} | 
+                                        Hõbedat: ${pred.silver_medals || '-'} | 
+                                        Pronksi: ${pred.bronze_medals || '-'}<br>
+                                        TOP 1 riik: ${pred.top_country || '-'}<br>
+                                        Suurim üllatus: ${pred.biggest_surprise || '-'}
+                                    </div>
+                                    <div><strong>Sportlased:</strong></div>
+                                    ${athletePredictions.join('')}
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    html += `
+                        <div style="padding: 10px; margin-bottom: 8px; background: ${bgColor}; border-radius: 6px; border-left: 3px solid var(--accent);">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <strong style="color: var(--accent);">${log.userName}</strong>
+                                    <span style="color: var(--text-muted); margin-left: 10px;">
+                                        ${log.predictionsCount} ennustust
+                                    </span>
+                                    ${predictionsSummary ? `
+                                        <button onclick="toggleLogDetails('${logId}')" 
+                                                style="margin-left: 10px; padding: 4px 10px; background: rgba(0, 212, 255, 0.2); border: 1px solid var(--accent); border-radius: 6px; color: var(--accent); cursor: pointer; font-size: 0.8rem;">
+                                            👁️ Vaata detaile
+                                        </button>
+                                    ` : ''}
+                                </div>
+                                <div style="text-align: right; font-size: 0.85rem; color: var(--text-muted);">
+                                    ${log.dateTime}
+                                </div>
+                            </div>
+                            ${predictionsSummary}
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                logDiv.innerHTML = html;
+            } catch (error) {
+                logDiv.innerHTML = '<p style="color: #ff6b6b;">Viga logi laadimisel</p>';
+                console.error(error);
+            }
+        }
+
+        function toggleLogDetails(logId) {
+            const details = document.getElementById(logId + '_details');
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+
+        async function showAllData() {
+            try {
+                const keys = await storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    alert('Andmeid ei ole veel');
+                    return;
+                }
+
+                let allData = {};
+                for (const key of keys.keys) {
+                    const data = await storage.get(key, true);
+                    if (data) {
+                        allData[key] = JSON.parse(data.value);
+                    }
+                }
+
+                const dataWindow = window.open('', '_blank');
+                dataWindow.document.write('<html><head><title>Kõik ennustused</title>');
+                dataWindow.document.write('<style>body{font-family:monospace;padding:20px;background:#1a1a1a;color:#fff;}pre{background:#2a2a2a;padding:15px;border-radius:8px;overflow:auto;}</style>');
+                dataWindow.document.write('</head><body>');
+                dataWindow.document.write('<h1>Kõik ennustused</h1>');
+                dataWindow.document.write('<pre>' + JSON.stringify(allData, null, 2) + '</pre>');
+                dataWindow.document.write('</body></html>');
+                dataWindow.document.close();
+            } catch (error) {
+                alert('Viga andmete kuvamisel: ' + error.message);
+            }
+        }
+
+        async function exportData() {
+            try {
+                const keys = await storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    alert('Andmeid ei ole veel varundamiseks');
+                    return;
+                }
+
+                let allData = {};
+                for (const key of keys.keys) {
+                    const data = await storage.get(key, true);
+                    if (data) {
+                        allData[key] = JSON.parse(data.value);
+                    }
+                }
+
+                const dataStr = JSON.stringify(allData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'olympic-predictions-backup-' + new Date().toISOString().split('T')[0] + '.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                alert('✅ Andmed salvestatud! Fail on alla laaditud.');
+            } catch (error) {
+                alert('❌ Viga varundamisel: ' + error.message);
+            }
+        }
+
+        async function resetAllData() {
+            const confirmation = prompt('⚠️ HOIATUS! See kustutab KÕIK ennustused JA logid!\n\nKui oled kindel, kirjuta: RESET');
+            
+            if (confirmation !== 'RESET') {
+                alert('Tühistatud');
+                return;
+            }
+
+            const doubleCheck = confirm('Kas oled 100% kindel? Seda ei saa tagasi võtta!');
+            if (!doubleCheck) {
+                alert('Tühistatud');
+                return;
+            }
+
+            try {
+                // Kustuta ennustused
+                const predictionKeys = await storage.list('predictions:', true);
+                let deletedCount = 0;
+                
+                if (predictionKeys && predictionKeys.keys.length > 0) {
+                    for (const key of predictionKeys.keys) {
+                        try {
+                            await storage.delete(key, true);
+                            deletedCount++;
+                        } catch (error) {
+                            console.error('Error deleting:', key, error);
+                        }
+                    }
+                }
+
+                // Kustuta logid
+                const logKeys = await storage.list('log:', true);
+                let deletedLogs = 0;
+                
+                if (logKeys && logKeys.keys.length > 0) {
+                    for (const key of logKeys.keys) {
+                        try {
+                            await storage.delete(key, true);
+                            deletedLogs++;
+                        } catch (error) {
+                            console.error('Error deleting log:', key, error);
+                        }
+                    }
+                }
+
+                alert(`✅ Kustutatud ${deletedCount} ennustust ja ${deletedLogs} logi!\n\nLeht on nüüd puhas ja valmis jagamiseks.`);
+                loadAdminPanel();
+            } catch (error) {
+                alert('❌ Viga kustutamisel: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
