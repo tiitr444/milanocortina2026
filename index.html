@@ -431,6 +431,32 @@
             font-size: 0.85rem;
         }
 
+        .locked-competition {
+            opacity: 0.6;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .locked-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .time-until-start {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-top: 5px;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
         .leaderboard {
             background: var(--bg-card);
             padding: 30px;
@@ -638,6 +664,7 @@
             <div class="tab active" onclick="switchTab('predictions')">Minu ennustused</div>
             <div class="tab" onclick="switchTab('leaderboard')">Edetabel</div>
             <div class="tab" onclick="switchTab('calendar')">Võistluskalender</div>
+            <div class="tab" onclick="switchTab('admin')" style="margin-left: auto; background: rgba(255, 0, 0, 0.2);">🔧 Admin</div>
         </div>
 
         <div id="predictions-tab" class="tab-content active">
@@ -658,6 +685,68 @@
         <div id="calendar-tab" class="tab-content">
             <div class="calendar-grid" id="calendarContent"></div>
         </div>
+
+        <div id="admin-tab" class="tab-content">
+            <div class="leaderboard" style="max-width: 800px; margin: 0 auto;">
+                <h2 class="leaderboard-title">🔧 Admin paneelil</h2>
+                
+                <div style="background: rgba(255, 0, 0, 0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #ff0000; margin-bottom: 30px;">
+                    <p style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">⚠️ HOIATUS</p>
+                    <p>Need nupud on administraatorile testimiseks. Kasuta ettevaatlikult!</p>
+                </div>
+
+                <div style="display: grid; gap: 20px;">
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            📊 Andmete ülevaade
+                        </h3>
+                        <div id="adminStats" style="color: var(--text-muted); line-height: 1.8;"></div>
+                        <button onclick="showAllData()" style="margin-top: 15px; background: var(--primary); padding: 12px 25px;">
+                            👁️ Näita kõiki andmeid
+                        </button>
+                    </div>
+
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            📝 Tegevuste logi
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Vaata kes millal ennustusi salvestas
+                        </p>
+                        <div id="activityLog" style="max-height: 400px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                            <p style="color: var(--text-muted);">Laadimine...</p>
+                        </div>
+                        <button onclick="loadActivityLog()" style="background: var(--primary); padding: 12px 25px;">
+                            🔄 Värskenda logi
+                        </button>
+                    </div>
+
+                    <div style="background: var(--bg-dark); padding: 25px; border-radius: 12px;">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent);">
+                            💾 Varundamine
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Salvesta kõik andmed enne resetimist (just in case!)
+                        </p>
+                        <button onclick="exportData()" style="background: linear-gradient(135deg, #00d4ff, #0066CC); padding: 12px 25px;">
+                            📥 Laadi alla backup
+                        </button>
+                    </div>
+
+                    <div style="background: rgba(255, 0, 0, 0.05); padding: 25px; border-radius: 12px; border: 2px solid rgba(255, 0, 0, 0.3);">
+                        <h3 style="font-family: 'Bebas Neue'; font-size: 1.5rem; margin-bottom: 15px; color: #ff6b6b;">
+                            🗑️ Kustuta kõik andmed
+                        </h3>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">
+                            Kustutab KÕIK ennustused ja logid. Seda ei saa tagasi võtta!
+                        </p>
+                        <button onclick="resetAllData()" style="background: linear-gradient(135deg, #ff4444, #cc0000); padding: 15px 30px;">
+                            ⚠️ RESET - Kustuta kõik
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -667,6 +756,7 @@
                 sport: "Kurling",
                 event: "Segapaarid",
                 date: "4.-10. veebruar",
+                startTime: "2026-02-04T20:00:00",
                 id: "curling_mixed"
             },
             {
@@ -674,6 +764,7 @@
                 sport: "Freestyle",
                 event: "Rennisõit",
                 date: "21. veebruar",
+                startTime: "2026-02-21T20:30:00",
                 id: "sildaru_kelly_ski"
             },
             {
@@ -681,6 +772,7 @@
                 sport: "Freestyle",
                 event: "Pargisõit",
                 date: "10. veebruar",
+                startTime: "2026-02-10T13:30:00",
                 id: "sildaru_henry_park"
             },
             {
@@ -688,6 +780,7 @@
                 sport: "Freestyle",
                 event: "Big Air",
                 date: "17. veebruar",
+                startTime: "2026-02-17T20:30:00",
                 id: "sildaru_henry_bigair"
             },
             {
@@ -695,6 +788,7 @@
                 sport: "Freestyle",
                 event: "Rennisõit",
                 date: "20. veebruar",
+                startTime: "2026-02-20T20:30:00",
                 id: "sildaru_henry_ski"
             },
             {
@@ -702,6 +796,7 @@
                 sport: "Freestyle",
                 event: "Rennisõit",
                 date: "21. veebruar",
+                startTime: "2026-02-21T20:30:00",
                 id: "meentalo_ski"
             },
             {
@@ -709,6 +804,7 @@
                 sport: "Kiiruisutamine",
                 event: "1000m",
                 date: "11. veebruar",
+                startTime: "2026-02-11T19:30:00",
                 id: "liiv_1000"
             },
             {
@@ -716,6 +812,7 @@
                 sport: "Kiiruisutamine",
                 event: "500m",
                 date: "14. veebruar",
+                startTime: "2026-02-14T17:00:00",
                 id: "liiv_500"
             },
             {
@@ -723,6 +820,7 @@
                 sport: "Iluuisutamine",
                 event: "Meeste üksiksõit",
                 date: "10. & 13. veebruar",
+                startTime: "2026-02-10T19:30:00",
                 id: "selevko"
             },
             {
@@ -730,6 +828,7 @@
                 sport: "Iluuisutamine",
                 event: "Naiste üksiksõit",
                 date: "17. & 19. veebruar",
+                startTime: "2026-02-17T19:30:00",
                 id: "petrokina"
             },
             {
@@ -737,6 +836,7 @@
                 sport: "Kahevõistlus",
                 event: "Normaalmägi",
                 date: "11. veebruar",
+                startTime: "2026-02-11T11:00:00",
                 id: "ilves_normal"
             },
             {
@@ -744,6 +844,7 @@
                 sport: "Kahevõistlus",
                 event: "Suur mägi",
                 date: "17. veebruar",
+                startTime: "2026-02-17T11:00:00",
                 id: "ilves_large"
             },
             {
@@ -751,6 +852,7 @@
                 sport: "Laskesuusatamine",
                 event: "Meeste teatesõit",
                 date: "17. veebruar",
+                startTime: "2026-02-17T15:30:00",
                 id: "biathlon_men_relay"
             },
             {
@@ -758,6 +860,7 @@
                 sport: "Laskesuusatamine",
                 event: "Naiste teatesõit",
                 date: "18. veebruar",
+                startTime: "2026-02-18T15:45:00",
                 id: "biathlon_women_relay"
             },
             {
@@ -765,6 +868,7 @@
                 sport: "Laskesuusatamine",
                 event: "Segateatesõit",
                 date: "8. veebruar",
+                startTime: "2026-02-08T15:00:00",
                 id: "biathlon_mixed_relay"
             },
             {
@@ -772,6 +876,7 @@
                 sport: "Murdmaasuusatamine",
                 event: "Meeste teatesõit",
                 date: "15. veebruar",
+                startTime: "2026-02-15T13:00:00",
                 id: "cross_country_men_relay"
             },
             {
@@ -779,6 +884,7 @@
                 sport: "Murdmaasuusatamine",
                 event: "Naiste teatesõit",
                 date: "14. veebruar",
+                startTime: "2026-02-14T13:00:00",
                 id: "cross_country_women_relay"
             },
             {
@@ -786,6 +892,7 @@
                 sport: "Suusahüpped",
                 event: "Normaalmägi",
                 date: "9. veebruar",
+                startTime: "2026-02-09T20:00:00",
                 id: "aigro_normal"
             },
             {
@@ -793,6 +900,7 @@
                 sport: "Suusahüpped",
                 event: "Suur mägi",
                 date: "14. veebruar",
+                startTime: "2026-02-14T19:45:00",
                 id: "aigro_large"
             },
             {
@@ -800,6 +908,7 @@
                 sport: "Skeleton",
                 event: "Naised",
                 date: "13.-14. veebruar",
+                startTime: "2026-02-13T16:00:00",
                 id: "zunte"
             },
             {
@@ -807,6 +916,7 @@
                 sport: "Lumelauakross",
                 event: "Naised",
                 date: "13. veebruar",
+                startTime: "2026-02-13T11:00:00",
                 id: "teder_snowboard"
             },
             {
@@ -814,6 +924,7 @@
                 sport: "Mäesuusatamine",
                 event: "Suurslaalom",
                 date: "14. veebruar",
+                startTime: "2026-02-14T11:00:00",
                 id: "laine_gs"
             },
             {
@@ -821,6 +932,7 @@
                 sport: "Mäesuusatamine",
                 event: "Slaalom",
                 date: "16. veebruar",
+                startTime: "2026-02-16T11:00:00",
                 id: "laine_slalom"
             }
         ];
@@ -856,7 +968,41 @@
         let currentUser = '';
         let predictions = {};
 
+        function isCompetitionLocked(athlete) {
+            const now = new Date();
+            const startTime = new Date(athlete.startTime);
+            return now >= startTime;
+        }
+
+        function getTimeUntilStart(athlete) {
+            const now = new Date();
+            const startTime = new Date(athlete.startTime);
+            const diff = startTime - now;
+            
+            if (diff <= 0) return null;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            if (days > 0) return `${days}p ${hours}h`;
+            if (hours > 0) return `${hours}h`;
+            return 'Varsti';
+        }
+
+        let adminAuthenticated = false;
+
         function switchTab(tabName) {
+            // Admin tab vajab parooli
+            if (tabName === 'admin' && !adminAuthenticated) {
+                const password = prompt('🔐 Admin paneel on kaitstud.\n\nSisesta parool:');
+                if (password !== 'tiitonadmin123!') {
+                    alert('❌ Vale parool! Ärge proovige 😄');
+                    return;
+                }
+                adminAuthenticated = true;
+                alert('✅ Tere tulemast, admin!');
+            }
+
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
@@ -867,6 +1013,8 @@
                 loadLeaderboard();
             } else if (tabName === 'calendar') {
                 loadCalendar();
+            } else if (tabName === 'admin') {
+                loadAdminPanel();
             }
         }
 
@@ -931,6 +1079,9 @@
                 const placementPred = predictions[athlete.id + '_placement'] || '';
                 const exactPred = predictions[athlete.id + '_exact'] || '';
                 
+                const isLocked = isCompetitionLocked(athlete);
+                const timeUntil = getTimeUntilStart(athlete);
+                
                 let summary = '';
                 let points = 0;
                 if (medalPred === 'K') { summary = '🥇 Kuld'; points = 10; }
@@ -942,11 +1093,14 @@
                 else if (exactPred) { summary = `🎯 ${exactPred}. koht`; points = 15; }
                 
                 html += `
-                    <div class="prediction-card">
+                    <div class="prediction-card ${isLocked ? 'locked-competition' : ''}">
+                        ${isLocked ? '<div class="locked-badge">🔒 LUKUS</div>' : ''}
                         <div class="card-header">
                             <div>
                                 <div class="sport-tag">${athlete.sport}</div>
                                 <div class="athlete-name">${athlete.name}</div>
+                                ${!isLocked && timeUntil ? `<div class="time-until-start">⏰ ${timeUntil} alguseni</div>` : ''}
+                                ${isLocked ? `<div class="time-until-start" style="color: #ff6b6b;">Võistlus alanud</div>` : ''}
                             </div>
                             <div class="event-date">${athlete.date}<br><small>${athlete.event}</small></div>
                         </div>
@@ -954,24 +1108,24 @@
                         <div class="placement-label">🏅 Medaliennustus</div>
                         <div class="medal-selector">
                             <button class="medal-btn gold ${medalPred === 'K' ? 'active' : ''}" 
-                                    onclick="selectMedal('${athlete.id}', 'K')">Kuld</button>
+                                    onclick="selectMedal('${athlete.id}', 'K', ${isLocked})">Kuld</button>
                             <button class="medal-btn silver ${medalPred === 'H' ? 'active' : ''}" 
-                                    onclick="selectMedal('${athlete.id}', 'H')">Hõbe</button>
+                                    onclick="selectMedal('${athlete.id}', 'H', ${isLocked})">Hõbe</button>
                             <button class="medal-btn bronze ${medalPred === 'P' ? 'active' : ''}" 
-                                    onclick="selectMedal('${athlete.id}', 'P')">Pronks</button>
+                                    onclick="selectMedal('${athlete.id}', 'P', ${isLocked})">Pronks</button>
                             <button class="medal-btn none ${!medalPred ? 'active' : ''}" 
-                                    onclick="selectMedal('${athlete.id}', '')">-</button>
+                                    onclick="selectMedal('${athlete.id}', '', ${isLocked})">-</button>
                         </div>
                         
                         <div class="placement-options">
                             <div class="placement-label">📊 Või koha ennustus</div>
                             <div class="placement-grid">
                                 <button class="placement-btn ${placementPred === 'top5' ? 'active' : ''}" 
-                                        onclick="selectPlacement('${athlete.id}', 'top5')">TOP 5</button>
+                                        onclick="selectPlacement('${athlete.id}', 'top5', ${isLocked})">TOP 5</button>
                                 <button class="placement-btn ${placementPred === 'top10' ? 'active' : ''}" 
-                                        onclick="selectPlacement('${athlete.id}', 'top10')">TOP 10</button>
+                                        onclick="selectPlacement('${athlete.id}', 'top10', ${isLocked})">TOP 10</button>
                                 <button class="placement-btn ${placementPred === 'top20' ? 'active' : ''}" 
-                                        onclick="selectPlacement('${athlete.id}', 'top20')">TOP 20</button>
+                                        onclick="selectPlacement('${athlete.id}', 'top20', ${isLocked})">TOP 20</button>
                             </div>
                             
                             <div class="placement-label">🎯 Või täpne koht (1-50)</div>
@@ -982,7 +1136,8 @@
                                        min="1" 
                                        max="50" 
                                        placeholder="nt. 8"
-                                       onchange="selectExactPosition('${athlete.id}', this.value)">
+                                       ${isLocked ? 'disabled' : ''}
+                                       onchange="selectExactPosition('${athlete.id}', this.value, ${isLocked})">
                             </div>
                         </div>
                         
@@ -997,7 +1152,11 @@
             content.innerHTML = html;
         }
 
-        function selectMedal(athleteId, medal) {
+        function selectMedal(athleteId, medal, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
             predictions[athleteId + '_medal'] = medal;
             if (medal) {
                 predictions[athleteId + '_placement'] = '';
@@ -1006,14 +1165,22 @@
             renderPredictions();
         }
 
-        function selectPlacement(athleteId, placement) {
+        function selectPlacement(athleteId, placement, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
             predictions[athleteId + '_placement'] = placement;
             predictions[athleteId + '_medal'] = '';
             predictions[athleteId + '_exact'] = '';
             renderPredictions();
         }
 
-        function selectExactPosition(athleteId, position) {
+        function selectExactPosition(athleteId, position, isLocked) {
+            if (isLocked) {
+                alert('⚠️ See võistlus on juba alanud! Ennustust ei saa enam muuta.');
+                return;
+            }
             if (position && position > 0 && position <= 50) {
                 predictions[athleteId + '_exact'] = position;
                 predictions[athleteId + '_medal'] = '';
@@ -1041,7 +1208,34 @@
             predictions.timestamp = new Date().toISOString();
 
             try {
+                // Salvesta ennustused
                 await window.storage.set(`predictions:${currentUser}`, JSON.stringify(predictions), true);
+                
+                // Lisa logi koos täpsete ennustustega
+                const logEntry = {
+                    userName: currentUser,
+                    action: 'save_predictions',
+                    timestamp: new Date().toISOString(),
+                    dateTime: new Date().toLocaleString('et-EE', { 
+                        timeZone: 'Europe/Tallinn',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    }),
+                    predictionsCount: Object.keys(predictions).filter(k => 
+                        k.includes('_medal') || k.includes('_placement') || k.includes('_exact')
+                    ).filter(k => predictions[k]).length,
+                    // Salvesta ka täpsed ennustused
+                    predictions: JSON.parse(JSON.stringify(predictions))
+                };
+                
+                // Salvesta logi
+                const logKey = `log:${Date.now()}:${currentUser}`;
+                await window.storage.set(logKey, JSON.stringify(logEntry), true);
+                
                 alert('✅ Ennustused salvestatud!');
             } catch (error) {
                 alert('❌ Salvestamine ebaõnnestus. Proovi uuesti.');
@@ -1136,6 +1330,7 @@
         function loadCalendar() {
             const content = document.getElementById('calendarContent');
             
+            // Grupeeri kuupäevade järgi
             const groupedByDate = {};
             calendarEvents.forEach(event => {
                 if (!groupedByDate[event.date]) {
@@ -1144,12 +1339,57 @@
                 groupedByDate[event.date].push(event);
             });
 
+            // Sorteerimisfunktsioon - teisenda eesti kuupäevad Date objektideks
+            const parseEstonianDate = (dateStr) => {
+                const months = {
+                    'veebruar': 1
+                };
+                const parts = dateStr.split(' ');
+                const day = parseInt(parts[0].replace('.', ''));
+                const month = months[parts[1]] || 2; // default veebruar
+                return new Date(2026, month, day);
+            };
+
+            // Sorteeri kuupäevad kronoloogiliselt
+            const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
+                return parseEstonianDate(a) - parseEstonianDate(b);
+            });
+
+            // Täna kuupäev võrdluseks
+            const today = new Date();
+            const todayStr = today.getDate() + '. veebruar';
+
             let html = '';
-            Object.keys(groupedByDate).sort().forEach(date => {
+            sortedDates.forEach(date => {
+                const eventDate = parseEstonianDate(date);
+                const isToday = date === todayStr;
+                const isPast = eventDate < today;
+                const isFuture = eventDate > today;
+
+                // Lisa märgistus kas täna, minevikus või tulevikus
+                let dateClass = '';
+                let dateLabel = '';
+                if (isToday) {
+                    dateClass = 'style="border-left-color: #FFD700; background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), var(--bg-card));"';
+                    dateLabel = ' 🔥 TÄNA';
+                } else if (isPast) {
+                    dateClass = 'style="opacity: 0.5;"';
+                    dateLabel = ' ✓ Möödas';
+                } else if (isFuture) {
+                    dateLabel = ' 📅 Tulekul';
+                }
+
                 html += `
-                    <div class="calendar-day">
-                        <div class="day-header">${date}</div>
-                        ${groupedByDate[date].map(event => `
+                    <div class="calendar-day" ${dateClass}>
+                        <div class="day-header">${date}${dateLabel}</div>
+                        ${groupedByDate[date]
+                            .sort((a, b) => {
+                                // Sorteeri ka kellaajad
+                                const timeA = a.time.split(':').map(Number);
+                                const timeB = b.time.split(':').map(Number);
+                                return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
+                            })
+                            .map(event => `
                             <div class="event-item">
                                 <span class="event-time">${event.time}</span>
                                 <span class="event-name">${event.event}</span>
@@ -1161,6 +1401,268 @@
             });
 
             content.innerHTML = html;
+        }
+
+        async function loadAdminPanel() {
+            try {
+                const keys = await window.storage.list('predictions:', true);
+                const statsDiv = document.getElementById('adminStats');
+                
+                let html = `
+                    <p><strong>Osalejaid kokku:</strong> ${keys ? keys.keys.length : 0}</p>
+                    <p><strong>Salvestatud ennustusi:</strong> ${keys ? keys.keys.length : 0}</p>
+                `;
+                
+                if (keys && keys.keys.length > 0) {
+                    html += '<p><strong>Osalejad:</strong></p><ul style="margin-left: 20px;">';
+                    for (const key of keys.keys) {
+                        const userName = key.replace('predictions:', '');
+                        html += `<li>${userName}</li>`;
+                    }
+                    html += '</ul>';
+                }
+                
+                statsDiv.innerHTML = html;
+                
+                // Lae ka logi automaatselt
+                await loadActivityLog();
+            } catch (error) {
+                document.getElementById('adminStats').innerHTML = '<p>Viga andmete laadimisel</p>';
+            }
+        }
+
+        async function loadActivityLog() {
+            const logDiv = document.getElementById('activityLog');
+            
+            try {
+                const keys = await window.storage.list('log:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    logDiv.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Logisid pole veel</p>';
+                    return;
+                }
+
+                // Lae kõik logid
+                const logs = [];
+                for (const key of keys.keys) {
+                    try {
+                        const data = await window.storage.get(key, true);
+                        if (data) {
+                            logs.push(JSON.parse(data.value));
+                        }
+                    } catch (e) {
+                        console.error('Error loading log:', e);
+                    }
+                }
+
+                // Sorteeri uusimad enne
+                logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                // Kuva logid
+                let html = '<div style="font-size: 0.9rem;">';
+                logs.forEach((log, index) => {
+                    const bgColor = index % 2 === 0 ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,0.1)';
+                    const logId = `log_${index}`;
+                    
+                    // Koosta ennustuste kokkuvõte
+                    let predictionsSummary = '';
+                    if (log.predictions) {
+                        const pred = log.predictions;
+                        const athletePredictions = [];
+                        
+                        athletes.forEach(athlete => {
+                            const medalPred = pred[athlete.id + '_medal'];
+                            const placementPred = pred[athlete.id + '_placement'];
+                            const exactPred = pred[athlete.id + '_exact'];
+                            
+                            if (medalPred || placementPred || exactPred) {
+                                let predText = '';
+                                if (medalPred === 'K') predText = '🥇 Kuld';
+                                else if (medalPred === 'H') predText = '🥈 Hõbe';
+                                else if (medalPred === 'P') predText = '🥉 Pronks';
+                                else if (placementPred === 'top5') predText = '🎯 TOP 5';
+                                else if (placementPred === 'top10') predText = '🎯 TOP 10';
+                                else if (placementPred === 'top20') predText = '🎯 TOP 20';
+                                else if (exactPred) predText = `🎯 ${exactPred}. koht`;
+                                
+                                athletePredictions.push(`<div style="padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05);"><strong>${athlete.name}</strong> (${athlete.event}): ${predText}</div>`);
+                            }
+                        });
+                        
+                        if (athletePredictions.length > 0) {
+                            predictionsSummary = `
+                                <div id="${logId}_details" style="display: none; margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 6px; max-height: 300px; overflow-y: auto;">
+                                    <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <strong>Üldennustused:</strong><br>
+                                        Medaleid kokku: ${pred.total_medals || '-'} | 
+                                        Kuldi: ${pred.gold_medals || '-'} | 
+                                        Hõbedat: ${pred.silver_medals || '-'} | 
+                                        Pronksi: ${pred.bronze_medals || '-'}<br>
+                                        TOP 1 riik: ${pred.top_country || '-'}<br>
+                                        Suurim üllatus: ${pred.biggest_surprise || '-'}
+                                    </div>
+                                    <div><strong>Sportlased:</strong></div>
+                                    ${athletePredictions.join('')}
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    html += `
+                        <div style="padding: 10px; margin-bottom: 8px; background: ${bgColor}; border-radius: 6px; border-left: 3px solid var(--accent);">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <strong style="color: var(--accent);">${log.userName}</strong>
+                                    <span style="color: var(--text-muted); margin-left: 10px;">
+                                        ${log.predictionsCount} ennustust
+                                    </span>
+                                    ${predictionsSummary ? `
+                                        <button onclick="toggleLogDetails('${logId}')" 
+                                                style="margin-left: 10px; padding: 4px 10px; background: rgba(0, 212, 255, 0.2); border: 1px solid var(--accent); border-radius: 6px; color: var(--accent); cursor: pointer; font-size: 0.8rem;">
+                                            👁️ Vaata detaile
+                                        </button>
+                                    ` : ''}
+                                </div>
+                                <div style="text-align: right; font-size: 0.85rem; color: var(--text-muted);">
+                                    ${log.dateTime}
+                                </div>
+                            </div>
+                            ${predictionsSummary}
+                        </div>
+                    `;
+                });
+                html += '</div>';
+
+                logDiv.innerHTML = html;
+            } catch (error) {
+                logDiv.innerHTML = '<p style="color: #ff6b6b;">Viga logi laadimisel</p>';
+                console.error(error);
+            }
+        }
+
+        function toggleLogDetails(logId) {
+            const details = document.getElementById(logId + '_details');
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+
+        async function showAllData() {
+            try {
+                const keys = await window.storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    alert('Andmeid ei ole veel');
+                    return;
+                }
+
+                let allData = {};
+                for (const key of keys.keys) {
+                    const data = await window.storage.get(key, true);
+                    if (data) {
+                        allData[key] = JSON.parse(data.value);
+                    }
+                }
+
+                const dataWindow = window.open('', '_blank');
+                dataWindow.document.write('<html><head><title>Kõik ennustused</title>');
+                dataWindow.document.write('<style>body{font-family:monospace;padding:20px;background:#1a1a1a;color:#fff;}pre{background:#2a2a2a;padding:15px;border-radius:8px;overflow:auto;}</style>');
+                dataWindow.document.write('</head><body>');
+                dataWindow.document.write('<h1>Kõik ennustused</h1>');
+                dataWindow.document.write('<pre>' + JSON.stringify(allData, null, 2) + '</pre>');
+                dataWindow.document.write('</body></html>');
+                dataWindow.document.close();
+            } catch (error) {
+                alert('Viga andmete kuvamisel: ' + error.message);
+            }
+        }
+
+        async function exportData() {
+            try {
+                const keys = await window.storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    alert('Andmeid ei ole veel varundamiseks');
+                    return;
+                }
+
+                let allData = {};
+                for (const key of keys.keys) {
+                    const data = await window.storage.get(key, true);
+                    if (data) {
+                        allData[key] = JSON.parse(data.value);
+                    }
+                }
+
+                const dataStr = JSON.stringify(allData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'olympic-predictions-backup-' + new Date().toISOString().split('T')[0] + '.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                alert('✅ Andmed salvestatud! Fail on alla laaditud.');
+            } catch (error) {
+                alert('❌ Viga varundamisel: ' + error.message);
+            }
+        }
+
+        async function resetAllData() {
+            const confirmation = prompt('⚠️ HOIATUS! See kustutab KÕIK ennustused JA logid!\n\nKui oled kindel, kirjuta: RESET');
+            
+            if (confirmation !== 'RESET') {
+                alert('Tühistatud');
+                return;
+            }
+
+            const doubleCheck = confirm('Kas oled 100% kindel? Seda ei saa tagasi võtta!');
+            if (!doubleCheck) {
+                alert('Tühistatud');
+                return;
+            }
+
+            try {
+                // Kustuta ennustused
+                const predictionKeys = await window.storage.list('predictions:', true);
+                let deletedCount = 0;
+                
+                if (predictionKeys && predictionKeys.keys.length > 0) {
+                    for (const key of predictionKeys.keys) {
+                        try {
+                            await window.storage.delete(key, true);
+                            deletedCount++;
+                        } catch (error) {
+                            console.error('Error deleting:', key, error);
+                        }
+                    }
+                }
+
+                // Kustuta logid
+                const logKeys = await window.storage.list('log:', true);
+                let deletedLogs = 0;
+                
+                if (logKeys && logKeys.keys.length > 0) {
+                    for (const key of logKeys.keys) {
+                        try {
+                            await window.storage.delete(key, true);
+                            deletedLogs++;
+                        } catch (error) {
+                            console.error('Error deleting log:', key, error);
+                        }
+                    }
+                }
+
+                alert(`✅ Kustutatud ${deletedCount} ennustust ja ${deletedLogs} logi!\n\nLeht on nüüd puhas ja valmis jagamiseks.`);
+                loadAdminPanel();
+            } catch (error) {
+                alert('❌ Viga kustutamisel: ' + error.message);
+            }
         }
     </script>
 </body>
