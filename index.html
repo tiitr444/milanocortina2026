@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milano Cortina 2026 - Olümpiaennustus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066CC;
+            --primary-dark: #003d7a;
+            --gold: #FFD700;
+            --silver: #C0C0C0;
+            --bronze: #CD7F32;
+            --bg-dark: #0a1628;
+            --bg-card: #1a2942;
+            --text-light: #e8f0ff;
+            --text-muted: #8ba3c7;
+            --accent: #00d4ff;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2942 50%, #0a1628 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .olympic-rings {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .ring {
+            width: 50px;
+            height: 50px;
+            border: 4px solid;
+            border-radius: 50%;
+        }
+
+        .ring:nth-child(1) { border-color: #0085C7; }
+        .ring:nth-child(2) { border-color: #000000; animation-delay: 0.1s; }
+        .ring:nth-child(3) { border-color: #DF0024; animation-delay: 0.2s; }
+        .ring:nth-child(4) { border-color: #F4C300; animation-delay: 0.3s; }
+        .ring:nth-child(5) { border-color: #009F3D; animation-delay: 0.4s; }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.3s ease-out forwards;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-section {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .user-input-group {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--bg-dark);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Crimson Pro', serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 102, 204, 0.6);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .tab:hover {
+            border-color: var(--accent);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow: 0 5px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .predictions-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .prediction-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .athlete-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+
+        .event-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        .sport-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(0, 102, 204, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .medal-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .medal-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .medal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .medal-btn.gold {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .medal-btn.gold.active {
+            background: var(--gold);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .medal-btn.silver {
+            border-color: var(--silver);
+            color: var(--silver);
+        }
+
+        .medal-btn.silver.active {
+            background: var(--silver);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(192, 192, 192, 0.5);
+        }
+
+        .medal-btn.bronze {
+            border-color: var(--bronze);
+            color: var(--bronze);
+        }
+
+        .medal-btn.bronze.active {
+            background: var(--bronze);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(205, 127, 50, 0.5);
+        }
+
+        .medal-btn.none {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .placement-options {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .placement-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .placement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .placement-btn {
+            padding: 10px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            background: var(--bg-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .placement-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+
+        .placement-btn.active {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.6), rgba(0, 212, 255, 0.6));
+            border-color: var(--accent);
+            box-shadow: 0 3px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .exact-position {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .exact-position input {
+            flex: 1;
+            padding: 10px 15px;
+            background: var(--bg-dark);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .exact-position input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .prediction-summary {
+            margin-top: 12px;
+            padding: 10px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .points-preview {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--gold), #FFA500);
+            border-radius: 15px;
+            color: var(--bg-dark);
+            font-weight: bold;
+            margin-left: 10px;
+            font-size: 0.85rem;
+        }
+
+        .leaderboard {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .leaderboard-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-dark);
+            margin-bottom: 12px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .leaderboard-item:nth-child(1) {
+            border-left-color: var(--gold);
+            background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), var(--bg-dark));
+        }
+
+        .leaderboard-item:nth-child(2) {
+            border-left-color: var(--silver);
+            background: linear-gradient(90deg, rgba(192, 192, 192, 0.1), var(--bg-dark));
+        }
+
+        .leaderboard-item:nth-child(3) {
+            border-left-color: var(--bronze);
+            background: linear-gradient(90deg, rgba(205, 127, 50, 0.1), var(--bg-dark));
+        }
+
+        .participant-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .points {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .general-predictions {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .general-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .general-card label {
+            font-size: 0.85rem;
+        }
+
+        .save-btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 1.4rem;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .info-banner p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .predictions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-input-group {
+                flex-direction: column;
+            }
+
+            .input-wrapper {
+                min-width: 100%;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .calendar-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .calendar-day {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .day-header {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .event-item {
+            padding: 12px;
+            background: var(--bg-dark);
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-time {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .event-name {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .event-sport {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="olympic-rings">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+            </div>
+            <h1>Milano Cortina 2026</h1>
+            <p class="subtitle">Olümpiaennustus</p>
+        </header>
+
+        <div class="user-section">
+            <div class="user-input-group">
+                <div class="input-wrapper">
+                    <label>Sinu nimi</label>
+                    <input type="text" id="userName" placeholder="Sisesta oma nimi...">
+                </div>
+                <button onclick="loadUserPredictions()">Alusta ennustamist</button>
+            </div>
+        </div>
+
+        <div class="info-banner">
+            <p><strong>📅 Tähtaeg:</strong> Ennustused tuleb esitada enne 4. veebruari kl 20:00 (esimene võistlus)<br>
+            <strong>🏅 Punktid:</strong> Kuld/Hõbe/Pronks = 10p | TOP 5 = 5p | TOP 10 = 3p | TOP 20 = 1p | Täpne koht = 15p</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('predictions')">Minu ennustused</div>
+            <div class="tab" onclick="switchTab('leaderboard')">Edetabel</div>
+            <div class="tab" onclick="switchTab('calendar')">Võistluskalender</div>
+        </div>
+
+        <div id="predictions-tab" class="tab-content active">
+            <div id="predictionsContent" class="loading">
+                Sisesta oma nimi üleval, et alustada...
+            </div>
+        </div>
+
+        <div id="leaderboard-tab" class="tab-content">
+            <div class="leaderboard">
+                <h2 class="leaderboard-title">🏆 Edetabel</h2>
+                <div id="leaderboardContent">
+                    <div class="loading">Andmeid laetakse...</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calendar-tab" class="tab-content">
+            <div class="calendar-grid" id="calendarContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const athletes = [
+            {
+                name: "Marie Kaldvee & Harri Lill",
+                sport: "Kurling",
+                event: "Segapaarid",
+                date: "4.-10. veebruar",
+                id: "curling_mixed"
+            },
+            {
+                name: "Kelly Sildaru",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "21. veebruar",
+                id: "sildaru_kelly_ski"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Pargisõit",
+                date: "10. veebruar",
+                id: "sildaru_henry_park"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Big Air",
+                date: "17. veebruar",
+                id: "sildaru_henry_bigair"
+            },
+            {
+                name: "Henry Sildaru",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "20. veebruar",
+                id: "sildaru_henry_ski"
+            },
+            {
+                name: "Grete-Mia Meentalo",
+                sport: "Freestyle",
+                event: "Rennisõit",
+                date: "21. veebruar",
+                id: "meentalo_ski"
+            },
+            {
+                name: "Marten Liiv",
+                sport: "Kiiruisutamine",
+                event: "1000m",
+                date: "11. veebruar",
+                id: "liiv_1000"
+            },
+            {
+                name: "Marten Liiv",
+                sport: "Kiiruisutamine",
+                event: "500m",
+                date: "14. veebruar",
+                id: "liiv_500"
+            },
+            {
+                name: "Aleksandr Selevko",
+                sport: "Iluuisutamine",
+                event: "Meeste üksiksõit",
+                date: "10. & 13. veebruar",
+                id: "selevko"
+            },
+            {
+                name: "Niina Petrõkina",
+                sport: "Iluuisutamine",
+                event: "Naiste üksiksõit",
+                date: "17. & 19. veebruar",
+                id: "petrokina"
+            },
+            {
+                name: "Kristjan Ilves",
+                sport: "Kahevõistlus",
+                event: "Normaalmägi",
+                date: "11. veebruar",
+                id: "ilves_normal"
+            },
+            {
+                name: "Kristjan Ilves",
+                sport: "Kahevõistlus",
+                event: "Suur mägi",
+                date: "17. veebruar",
+                id: "ilves_large"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Meeste teatesõit",
+                date: "17. veebruar",
+                id: "biathlon_men_relay"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Naiste teatesõit",
+                date: "18. veebruar",
+                id: "biathlon_women_relay"
+            },
+            {
+                name: "Laskesuusatamine",
+                sport: "Laskesuusatamine",
+                event: "Segateatesõit",
+                date: "8. veebruar",
+                id: "biathlon_mixed_relay"
+            },
+            {
+                name: "Murdmaasuusatamine",
+                sport: "Murdmaasuusatamine",
+                event: "Meeste teatesõit",
+                date: "15. veebruar",
+                id: "cross_country_men_relay"
+            },
+            {
+                name: "Murdmaasuusatamine",
+                sport: "Murdmaasuusatamine",
+                event: "Naiste teatesõit",
+                date: "14. veebruar",
+                id: "cross_country_women_relay"
+            },
+            {
+                name: "Artti Aigro",
+                sport: "Suusahüpped",
+                event: "Normaalmägi",
+                date: "9. veebruar",
+                id: "aigro_normal"
+            },
+            {
+                name: "Artti Aigro",
+                sport: "Suusahüpped",
+                event: "Suur mägi",
+                date: "14. veebruar",
+                id: "aigro_large"
+            },
+            {
+                name: "Darta Zunte",
+                sport: "Skeleton",
+                event: "Naised",
+                date: "13.-14. veebruar",
+                id: "zunte"
+            },
+            {
+                name: "Mai Brit Teder",
+                sport: "Lumelauakross",
+                event: "Naised",
+                date: "13. veebruar",
+                id: "teder_snowboard"
+            },
+            {
+                name: "Tormis Laine",
+                sport: "Mäesuusatamine",
+                event: "Suurslaalom",
+                date: "14. veebruar",
+                id: "laine_gs"
+            },
+            {
+                name: "Tormis Laine",
+                sport: "Mäesuusatamine",
+                event: "Slaalom",
+                date: "16. veebruar",
+                id: "laine_slalom"
+            }
+        ];
+
+        const calendarEvents = [
+            { date: "4. veebruar", time: "20:00", sport: "Kurling", event: "Eesti - Šveits" },
+            { date: "5. veebruar", time: "11:00", sport: "Kurling", event: "Suurbritannia - Eesti" },
+            { date: "7. veebruar", time: "15:00", sport: "Freestyle", event: "Meeste pargisõit kvalif." },
+            { date: "8. veebruar", time: "15:00", sport: "Laskesuusatamine", event: "Segateatesõit" },
+            { date: "9. veebruar", time: "20:00", sport: "Suusahüpped", event: "Meeste normaalmägi" },
+            { date: "10. veebruar", time: "13:30", sport: "Freestyle", event: "Meeste pargisõit finaal" },
+            { date: "10. veebruar", time: "19:30", sport: "Iluuisutamine", event: "Meeste lühikava" },
+            { date: "11. veebruar", time: "11:00", sport: "Kahevõistlus", event: "Normaalmägi" },
+            { date: "11. veebruar", time: "19:30", sport: "Kiiruisutamine", event: "Meeste 1000m" },
+            { date: "13. veebruar", time: "11:00", sport: "Lumelauakross", event: "Naiste kvalif." },
+            { date: "13. veebruar", time: "16:00", sport: "Skeleton", event: "Naised 1.-2. sõit" },
+            { date: "13. veebruar", time: "20:00", sport: "Iluuisutamine", event: "Meeste vabakava" },
+            { date: "14. veebruar", time: "11:00", sport: "Mäesuusatamine", event: "Meeste suurslaalom" },
+            { date: "14. veebruar", time: "17:00", sport: "Kiiruisutamine", event: "Meeste 500m" },
+            { date: "14. veebruar", time: "19:45", sport: "Suusahüpped", event: "Meeste suur mägi" },
+            { date: "15. veebruar", time: "13:00", sport: "Murdmaasuusatamine", event: "Meeste teatesõit" },
+            { date: "16. veebruar", time: "11:00", sport: "Mäesuusatamine", event: "Meeste slaalom" },
+            { date: "17. veebruar", time: "11:00", sport: "Kahevõistlus", event: "Suur mägi" },
+            { date: "17. veebruar", time: "15:30", sport: "Laskesuusatamine", event: "Meeste teatesõit" },
+            { date: "17. veebruar", time: "19:30", sport: "Iluuisutamine", event: "Naiste lühikava" },
+            { date: "17. veebruar", time: "20:30", sport: "Freestyle", event: "Meeste Big Air finaal" },
+            { date: "18. veebruar", time: "15:45", sport: "Laskesuusatamine", event: "Naiste teatesõit" },
+            { date: "19. veebruar", time: "20:00", sport: "Iluuisutamine", event: "Naiste vabakava" },
+            { date: "20. veebruar", time: "20:30", sport: "Freestyle", event: "Meeste rennisõit finaal" },
+            { date: "21. veebruar", time: "20:30", sport: "Freestyle", event: "Naiste rennisõit finaal" }
+        ];
+
+        let currentUser = '';
+        let predictions = {};
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            if (tabName === 'leaderboard') {
+                loadLeaderboard();
+            } else if (tabName === 'calendar') {
+                loadCalendar();
+            }
+        }
+
+        async function loadUserPredictions() {
+            const userName = document.getElementById('userName').value.trim();
+            if (!userName) {
+                alert('Palun sisesta oma nimi');
+                return;
+            }
+
+            currentUser = userName;
+            
+            try {
+                const stored = await window.storage.get(`predictions:${userName}`, true);
+                predictions = stored ? JSON.parse(stored.value) : {};
+            } catch (error) {
+                predictions = {};
+            }
+
+            renderPredictions();
+        }
+
+        function renderPredictions() {
+            const content = document.getElementById('predictionsContent');
+            
+            let html = '<div class="general-predictions">';
+            
+            html += `
+                <div class="general-card">
+                    <label>Eesti medaleid kokku</label>
+                    <input type="number" id="total_medals" value="${predictions.total_medals || ''}" min="0" max="20">
+                </div>
+                <div class="general-card">
+                    <label>Eesti kuldi</label>
+                    <input type="number" id="gold_medals" value="${predictions.gold_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>Eesti hõbedat</label>
+                    <input type="number" id="silver_medals" value="${predictions.silver_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>Eesti pronksi</label>
+                    <input type="number" id="bronze_medals" value="${predictions.bronze_medals || ''}" min="0" max="10">
+                </div>
+                <div class="general-card">
+                    <label>TOP 1 medalitabelis</label>
+                    <input type="text" id="top_country" value="${predictions.top_country || ''}" placeholder="Riigi nimi">
+                </div>
+                <div class="general-card">
+                    <label>Suurim üllatus</label>
+                    <input type="text" id="biggest_surprise" value="${predictions.biggest_surprise || ''}" placeholder="Kirjelda...">
+                </div>
+            `;
+            
+            html += '</div>';
+            
+            html += '<h2 style="margin-top: 40px; margin-bottom: 20px; font-family: Bebas Neue; font-size: 2rem; letter-spacing: 2px;">Medaliennustused ja kohad</h2>';
+            html += '<div class="predictions-grid">';
+            
+            athletes.forEach(athlete => {
+                const medalPred = predictions[athlete.id + '_medal'] || '';
+                const placementPred = predictions[athlete.id + '_placement'] || '';
+                const exactPred = predictions[athlete.id + '_exact'] || '';
+                
+                let summary = '';
+                let points = 0;
+                if (medalPred === 'K') { summary = '🥇 Kuld'; points = 10; }
+                else if (medalPred === 'H') { summary = '🥈 Hõbe'; points = 10; }
+                else if (medalPred === 'P') { summary = '🥉 Pronks'; points = 10; }
+                else if (placementPred === 'top5') { summary = '🎯 TOP 5'; points = 5; }
+                else if (placementPred === 'top10') { summary = '🎯 TOP 10'; points = 3; }
+                else if (placementPred === 'top20') { summary = '🎯 TOP 20'; points = 1; }
+                else if (exactPred) { summary = `🎯 ${exactPred}. koht`; points = 15; }
+                
+                html += `
+                    <div class="prediction-card">
+                        <div class="card-header">
+                            <div>
+                                <div class="sport-tag">${athlete.sport}</div>
+                                <div class="athlete-name">${athlete.name}</div>
+                            </div>
+                            <div class="event-date">${athlete.date}<br><small>${athlete.event}</small></div>
+                        </div>
+                        
+                        <div class="placement-label">🏅 Medaliennustus</div>
+                        <div class="medal-selector">
+                            <button class="medal-btn gold ${medalPred === 'K' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'K')">Kuld</button>
+                            <button class="medal-btn silver ${medalPred === 'H' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'H')">Hõbe</button>
+                            <button class="medal-btn bronze ${medalPred === 'P' ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', 'P')">Pronks</button>
+                            <button class="medal-btn none ${!medalPred ? 'active' : ''}" 
+                                    onclick="selectMedal('${athlete.id}', '')">-</button>
+                        </div>
+                        
+                        <div class="placement-options">
+                            <div class="placement-label">📊 Või koha ennustus</div>
+                            <div class="placement-grid">
+                                <button class="placement-btn ${placementPred === 'top5' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top5')">TOP 5</button>
+                                <button class="placement-btn ${placementPred === 'top10' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top10')">TOP 10</button>
+                                <button class="placement-btn ${placementPred === 'top20' ? 'active' : ''}" 
+                                        onclick="selectPlacement('${athlete.id}', 'top20')">TOP 20</button>
+                            </div>
+                            
+                            <div class="placement-label">🎯 Või täpne koht (1-50)</div>
+                            <div class="exact-position">
+                                <input type="number" 
+                                       id="exact_${athlete.id}" 
+                                       value="${exactPred}" 
+                                       min="1" 
+                                       max="50" 
+                                       placeholder="nt. 8"
+                                       onchange="selectExactPosition('${athlete.id}', this.value)">
+                            </div>
+                        </div>
+                        
+                        ${summary ? `<div class="prediction-summary">${summary}<span class="points-preview">+${points}p</span></div>` : ''}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            html += '<button class="save-btn" onclick="savePredictions()">💾 Salvesta ennustused</button>';
+            
+            content.innerHTML = html;
+        }
+
+        function selectMedal(athleteId, medal) {
+            predictions[athleteId + '_medal'] = medal;
+            if (medal) {
+                predictions[athleteId + '_placement'] = '';
+                predictions[athleteId + '_exact'] = '';
+            }
+            renderPredictions();
+        }
+
+        function selectPlacement(athleteId, placement) {
+            predictions[athleteId + '_placement'] = placement;
+            predictions[athleteId + '_medal'] = '';
+            predictions[athleteId + '_exact'] = '';
+            renderPredictions();
+        }
+
+        function selectExactPosition(athleteId, position) {
+            if (position && position > 0 && position <= 50) {
+                predictions[athleteId + '_exact'] = position;
+                predictions[athleteId + '_medal'] = '';
+                predictions[athleteId + '_placement'] = '';
+                renderPredictions();
+            } else if (!position) {
+                predictions[athleteId + '_exact'] = '';
+                renderPredictions();
+            }
+        }
+
+        async function savePredictions() {
+            if (!currentUser) {
+                alert('Palun sisesta oma nimi');
+                return;
+            }
+
+            predictions.total_medals = document.getElementById('total_medals').value;
+            predictions.gold_medals = document.getElementById('gold_medals').value;
+            predictions.silver_medals = document.getElementById('silver_medals').value;
+            predictions.bronze_medals = document.getElementById('bronze_medals').value;
+            predictions.top_country = document.getElementById('top_country').value;
+            predictions.biggest_surprise = document.getElementById('biggest_surprise').value;
+            predictions.userName = currentUser;
+            predictions.timestamp = new Date().toISOString();
+
+            try {
+                await window.storage.set(`predictions:${currentUser}`, JSON.stringify(predictions), true);
+                alert('✅ Ennustused salvestatud!');
+            } catch (error) {
+                alert('❌ Salvestamine ebaõnnestus. Proovi uuesti.');
+                console.error(error);
+            }
+        }
+
+        async function loadLeaderboard() {
+            const content = document.getElementById('leaderboardContent');
+            
+            try {
+                const keys = await window.storage.list('predictions:', true);
+                
+                if (!keys || keys.keys.length === 0) {
+                    content.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 40px;">Veel pole ennustusi esitatud</p>';
+                    return;
+                }
+
+                const allPredictions = [];
+                for (const key of keys.keys) {
+                    try {
+                        const data = await window.storage.get(key, true);
+                        if (data) {
+                            const pred = JSON.parse(data.value);
+                            allPredictions.push(pred);
+                        }
+                    } catch (e) {
+                        console.error('Error loading prediction:', e);
+                    }
+                }
+
+                allPredictions.sort((a, b) => {
+                    const pointsA = calculatePoints(a);
+                    const pointsB = calculatePoints(b);
+                    return pointsB - pointsA;
+                });
+
+                let html = '';
+                allPredictions.forEach((pred, index) => {
+                    const count = calculatePoints(pred);
+                    html += `
+                        <div class="leaderboard-item">
+                            <span class="participant-name">${index + 1}. ${pred.userName || 'Tundmatu'}</span>
+                            <span class="points">${count} ennustust</span>
+                        </div>
+                    `;
+                });
+
+                content.innerHTML = html;
+            } catch (error) {
+                content.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Viga andmete laadimisel</p>';
+                console.error(error);
+            }
+        }
+
+        function calculatePoints(pred) {
+            let points = 0;
+            
+            // Üldennustuste punktid (hiljem lisatakse tegelike tulemuste põhjal)
+            // Praegu lihtsalt loeme ennustuste arvu
+            
+            athletes.forEach(athlete => {
+                const medalPred = pred[athlete.id + '_medal'];
+                const placementPred = pred[athlete.id + '_placement'];
+                const exactPred = pred[athlete.id + '_exact'];
+                
+                // Näita potentsiaalseid punkte enne võistlusi
+                if (medalPred === 'K' || medalPred === 'H' || medalPred === 'P') {
+                    points += 0; // 10 punkti kui õige
+                } else if (placementPred === 'top5') {
+                    points += 0; // 5 punkti kui õige
+                } else if (placementPred === 'top10') {
+                    points += 0; // 3 punkti kui õige
+                } else if (placementPred === 'top20') {
+                    points += 0; // 1 punkt kui õige
+                } else if (exactPred) {
+                    points += 0; // 15 punkti kui täpne
+                }
+            });
+            
+            // Loeme ennustuste arvu
+            let predictionCount = 0;
+            athletes.forEach(athlete => {
+                if (pred[athlete.id + '_medal'] || pred[athlete.id + '_placement'] || pred[athlete.id + '_exact']) {
+                    predictionCount++;
+                }
+            });
+            
+            return predictionCount; // Näitame lihtsalt ennustuste arvu enne võistlusi
+        }
+
+        function loadCalendar() {
+            const content = document.getElementById('calendarContent');
+            
+            const groupedByDate = {};
+            calendarEvents.forEach(event => {
+                if (!groupedByDate[event.date]) {
+                    groupedByDate[event.date] = [];
+                }
+                groupedByDate[event.date].push(event);
+            });
+
+            let html = '';
+            Object.keys(groupedByDate).sort().forEach(date => {
+                html += `
+                    <div class="calendar-day">
+                        <div class="day-header">${date}</div>
+                        ${groupedByDate[date].map(event => `
+                            <div class="event-item">
+                                <span class="event-time">${event.time}</span>
+                                <span class="event-name">${event.event}</span>
+                                <span class="event-sport">${event.sport}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            });
+
+            content.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
